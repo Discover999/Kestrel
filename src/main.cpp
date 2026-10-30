@@ -733,9 +733,10 @@ void win_bi::ToggleCapture()
         {
             MessageBoxW(
                 hwnd,
-                L"No measurable foreground process is available. Focus the "
-                L"application you want to capture and make sure frame tracing "
-                L"is running.",
+                i18n_bi::tr("msg.no_foreground",
+                    L"No measurable foreground process is available. Focus the "
+                    L"application you want to capture and make sure frame tracing "
+                    L"is running."),
                 L"Kestrel", MB_ICONINFORMATION | MB_OK);
             return;
         }
@@ -2083,11 +2084,13 @@ int WINAPI WinMain(HINSTANCE hInstance, [[maybe_unused]] HINSTANCE hPrevInstance
             MessageBoxW(
                 NULL,
                 restored
-                    ? L"Kestrel could not start the replacement program. "
-                      L"The previous file layout was restored."
-                    : L"Kestrel could not start the replacement program, and "
-                      L"automatic file recovery also failed. Reinstall Kestrel "
-                      L"from the official release.",
+                    ? i18n_bi::tr("msg.restart_restored",
+                        L"Kestrel could not start the replacement program. "
+                        L"The previous file layout was restored.")
+                    : i18n_bi::tr("msg.restart_failed",
+                        L"Kestrel could not start the replacement program, and "
+                        L"automatic file recovery also failed. Reinstall Kestrel "
+                        L"from the official release."),
                 L"Kestrel", MB_ICONERROR | MB_OK);
             result = 4;
         }
