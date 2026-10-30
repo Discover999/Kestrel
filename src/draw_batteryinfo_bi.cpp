@@ -1071,8 +1071,9 @@ void draw_batteryinfo_bi::drawBatteryTab(ID2D1HwndRenderTarget *pRT, init_dwrite
     if (left >= 0)
     {
         txt(dw->pTextFormatLabel, IR - 220.0f, y + 109.0f, IR, y + 124.0f, pal.muted,
-            minutesText(left) + (discharging ? i18n_bi::tr("batt.time_left", L" left")
-                                             : i18n_bi::tr("batt.time_to_full", L" to full")),
+            wfmt(discharging ? i18n_bi::trf("batt.time_left", L"%ls left")
+                             : i18n_bi::trf("batt.time_to_full", L"%ls to full"),
+                 minutesText(left).c_str()),
             DWRITE_TEXT_ALIGNMENT_TRAILING);
     }
 
@@ -2492,8 +2493,9 @@ float draw_batteryinfo_bi::drawRunCard(init_dwrite_bi *dw, float L, float R, flo
     eyebrow(dw, IX, y + 16.0f, title);
 
     txt(dw->pTextFormatSmall, IR - 320.0f, y + 14.0f, IR, y + 30.0f, pal.muted,
-        widen(s.process) + wfmt(i18n_bi::trf("capture.frames_meta", L" \u00B7 %.0f s \u00B7 %u frames"),
-                                 s.seconds, (unsigned)s.frames),
+        widen(s.process) + L" " +
+            wfmt(i18n_bi::trf("capture.frames_meta", L"\u00B7 %.0f s \u00B7 %u frames"),
+                 s.seconds, (unsigned)s.frames),
         DWRITE_TEXT_ALIGNMENT_TRAILING, true);
 
     float colW = (IW - 32.0f) / 3.0f;
@@ -3139,10 +3141,11 @@ void draw_batteryinfo_bi::drawAboutTab(ID2D1HwndRenderTarget *pRT, init_dwrite_b
         break;
 
     case 3:
-        status = i18n_bi::tr("about.version_prefix", L"Version ") + widen(upd.version) +
-                 i18n_bi::tr("about.is_available", L" is available");
+        status = wfmt(i18n_bi::trf("about.update_available", L"Version %ls is available"),
+                      widen(upd.version).c_str());
         statusColor = pal.warn;
-        primaryLabel = i18n_bi::tr("about.download", L"Download ") + widen(upd.version);
+        primaryLabel = wfmt(i18n_bi::trf("about.download", L"Download %ls"),
+                            widen(upd.version).c_str());
         primaryAction = ACT_DOWNLOAD_UPDATE;
         break;
 
@@ -3153,8 +3156,8 @@ void draw_batteryinfo_bi::drawAboutTab(ID2D1HwndRenderTarget *pRT, init_dwrite_b
         break;
 
     case 5:
-        status = i18n_bi::tr("about.version_prefix", L"Version ") + widen(upd.version) +
-                 i18n_bi::tr("about.is_ready", L" is ready to install");
+        status = wfmt(i18n_bi::trf("about.update_ready", L"Version %ls is ready to install"),
+                      widen(upd.version).c_str());
         statusColor = pal.ok;
         primaryLabel = i18n_bi::tr("about.install", L"Install and restart");
         primaryAction = ACT_INSTALL_UPDATE;
@@ -3204,8 +3207,8 @@ void draw_batteryinfo_bi::drawAboutTab(ID2D1HwndRenderTarget *pRT, init_dwrite_b
 
         std::wstring rollLabel = upd.backupVersion.empty()
                                      ? i18n_bi::tr("about.rollback", L"Roll back")
-                                     : (i18n_bi::tr("about.rollback_to", L"Roll back to ") +
-                                        widen(upd.backupVersion));
+                                     : wfmt(i18n_bi::trf("about.rollback_to", L"Roll back to %ls"),
+                                            widen(upd.backupVersion).c_str());
 
         button(dw, rollX, btnY, rollW, rollLabel, false, isHovered(HIT_ACTION, ACT_ROLLBACK));
         pushHit(D2D1::RectF(rollX, btnY, rollX + rollW, btnY + BTN_H),
@@ -3249,8 +3252,8 @@ void draw_batteryinfo_bi::drawAboutTab(ID2D1HwndRenderTarget *pRT, init_dwrite_b
     lines.push_back(d2);
 
     diag_row d3 = {i18n_bi::tr("about.diag_battery", L"Battery"),
-                   diag.battery ? (i18n_bi::tr("about.one_device", L"1 device \u00B7 ") +
-                                   widen(diag.chemistry))
+                   diag.battery ? wfmt(i18n_bi::trf("about.one_device", L"1 device \u00B7 %ls"),
+                                       widen(diag.chemistry).c_str())
                                 : i18n_bi::tr("about.no_device", L"No device"),
                    diag.battery};
     lines.push_back(d3);
