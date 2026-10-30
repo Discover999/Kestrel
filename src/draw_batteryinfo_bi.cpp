@@ -1094,7 +1094,7 @@ void draw_batteryinfo_bi::drawBatteryTab(ID2D1HwndRenderTarget *pRT, init_dwrite
         txt(dw->pTextFormatSmall, IX + 52.0f, y + 37.0f, IX + 260.0f, y + 55.0f, pal.muted,
             i18n_bi::tr("batt.of_design", L"of design capacity"));
         txt(dw->pTextFormatLabel, IR - 160.0f, y + 37.0f, IR, y + 55.0f, wearColor,
-            wfmt(i18n_bi::tr("batt.wear", L"%.0f%% wear"), bi->info_static.wearPercent),
+            wfmt(i18n_bi::trf("batt.wear", L"%.0f%% wear"), bi->info_static.wearPercent),
             DWRITE_TEXT_ALIGNMENT_TRAILING);
 
         bar(IX, y + 67.0f, IW, 8.0f, (float)(health / 100.0), wearColor);
@@ -1108,7 +1108,7 @@ void draw_batteryinfo_bi::drawBatteryTab(ID2D1HwndRenderTarget *pRT, init_dwrite
     if (bi->info_static.cycleCountValid)
     {
         txt(dw->pTextFormatLabel, IX, y + 85.0f, IX + 200.0f, y + 100.0f, pal.muted,
-            wfmt(i18n_bi::tr("batt.cycles", L"%d cycles"), bi->info_static.cycleCount));
+            wfmt(i18n_bi::trf("batt.cycles", L"%d cycles"), bi->info_static.cycleCount));
     }
     else
     {
@@ -1119,7 +1119,7 @@ void draw_batteryinfo_bi::drawBatteryTab(ID2D1HwndRenderTarget *pRT, init_dwrite
     if (bi->info_static.capacityValid)
     {
         txt(dw->pTextFormatLabel, IR - 280.0f, y + 85.0f, IR, y + 100.0f, pal.muted,
-            wfmt(i18n_bi::tr("batt.design_full", L"%.1f Wh design \u00B7 %.1f Wh full"),
+            wfmt(i18n_bi::trf("batt.design_full", L"%.1f Wh design \u00B7 %.1f Wh full"),
                  bi->info_static.designedWh, bi->info_static.fullChargedWh),
             DWRITE_TEXT_ALIGNMENT_TRAILING);
     }
@@ -2069,7 +2069,7 @@ void draw_batteryinfo_bi::drawSettingsTab(ID2D1HwndRenderTarget *pRT, init_dwrit
     }
 
     txt(dw->pTextFormatMicro, R - 200.0f, y, R, y + 28.0f, pal.faint,
-        wfmt(i18n_bi::tr("settings.shown", L"%d of %d shown"), totalOn, totalRows),
+        wfmt(i18n_bi::trf("settings.shown", L"%d of %d shown"), totalOn, totalRows),
         DWRITE_TEXT_ALIGNMENT_TRAILING);
 
     y += 28.0f + CARD_GAP;
@@ -2467,7 +2467,7 @@ void draw_batteryinfo_bi::drawSettingsTab(ID2D1HwndRenderTarget *pRT, init_dwrit
 
     eyebrow(dw, previewLeft + CARD_PAD, previewTop + 16.0f,
             fit < 0.999f
-                ? wfmt(i18n_bi::tr("preview.scaled", L"PREVIEW \u00B7 %.0f%% OF ACTUAL SIZE"), fit * 100.0)
+                ? wfmt(i18n_bi::trf("preview.scaled", L"PREVIEW \u00B7 %.0f%% OF ACTUAL SIZE"), fit * 100.0)
                 : std::wstring(i18n_bi::tr("preview.actual", L"PREVIEW \u00B7 ACTUAL SIZE")));
 
     drawOverlayPreview(dw, ov, ru, previewLeft + CARD_PAD, previewTop + 36.0f,
@@ -2492,7 +2492,7 @@ float draw_batteryinfo_bi::drawRunCard(init_dwrite_bi *dw, float L, float R, flo
     eyebrow(dw, IX, y + 16.0f, title);
 
     txt(dw->pTextFormatSmall, IR - 320.0f, y + 14.0f, IR, y + 30.0f, pal.muted,
-        widen(s.process) + wfmt(i18n_bi::tr("capture.frames_meta", L" \u00B7 %.0f s \u00B7 %u frames"),
+        widen(s.process) + wfmt(i18n_bi::trf("capture.frames_meta", L" \u00B7 %.0f s \u00B7 %u frames"),
                                  s.seconds, (unsigned)s.frames),
         DWRITE_TEXT_ALIGNMENT_TRAILING, true);
 
@@ -2537,7 +2537,7 @@ float draw_batteryinfo_bi::drawRunCard(init_dwrite_bi *dw, float L, float R, flo
     if (effOk)
     {
         txt(dw->pTextFormatMicro, IX, rowY, IR, rowY + 15.0f, pal.faint,
-            wfmt(i18n_bi::tr("capture.per_wh", L"%.0f frames per watt-hour"),
+            wfmt(i18n_bi::trf("capture.per_wh", L"%.0f frames per watt-hour"),
                  (double)s.frames / s.energyWh));
     }
     else
@@ -2576,13 +2576,13 @@ void draw_batteryinfo_bi::drawCaptureTab(ID2D1HwndRenderTarget *pRT, init_dwrite
             wfmt(L"%d:%02d", mins, secs));
 
         txt(dw->pTextFormatSmall, IR - 260.0f, y + 32.0f, IR, y + 50.0f, pal.muted,
-            wfmt(i18n_bi::tr("capture.frames", L"%u frames"), (unsigned)cap.frames),
+            wfmt(i18n_bi::trf("capture.frames", L"%u frames"), (unsigned)cap.frames),
             DWRITE_TEXT_ALIGNMENT_TRAILING);
         txt(dw->pTextFormatSmall, IR - 260.0f, y + 50.0f, IR, y + 68.0f, pal.muted,
             cap.liveLow1Valid
-                ? wfmt(i18n_bi::tr("capture.fps_low", L"%.0f fps avg \u00B7 %.0f low"),
+                ? wfmt(i18n_bi::trf("capture.fps_low", L"%.0f fps avg \u00B7 %.0f low"),
                        cap.liveFps, cap.liveLow1)
-                : wfmt(i18n_bi::tr("capture.fps_avg", L"%.0f fps avg"), cap.liveFps),
+                : wfmt(i18n_bi::trf("capture.fps_avg", L"%.0f fps avg"), cap.liveFps),
             DWRITE_TEXT_ALIGNMENT_TRAILING);
 
         button(dw, IX, y + 80.0f, 160.0f, i18n_bi::tr("capture.stop_save", L"Stop and save"),
@@ -3086,7 +3086,7 @@ void draw_batteryinfo_bi::drawAboutTab(ID2D1HwndRenderTarget *pRT, init_dwrite_b
 
     txt(dw->pTextFormatTitle, IX + 64.0f, y + 21.0f, IX + 320.0f, y + 53.0f, pal.text, L"Kestrel");
     txt(dw->pTextFormatLabel, IX + 64.0f, y + 54.0f, IX + 360.0f, y + 70.0f, pal.muted,
-        wfmt(i18n_bi::tr("about.version", L"Version %d.%d.%d \u00B7 portable build"),
+        wfmt(i18n_bi::trf("about.version", L"Version %d.%d.%d \u00B7 portable build"),
              APP_VERSION_MAJOR, APP_VERSION_MINOR, APP_VERSION_PATCH));
 
     txt(dw->pTextFormatSmall, IX, y + 89.0f, IR, y + 107.0f, pal.muted,
@@ -3133,7 +3133,7 @@ void draw_batteryinfo_bi::drawAboutTab(ID2D1HwndRenderTarget *pRT, init_dwrite_b
         break;
 
     case 2:
-        status = wfmt(i18n_bi::tr("about.newest", L"%d.%d.%d is the newest release"),
+        status = wfmt(i18n_bi::trf("about.newest", L"%d.%d.%d is the newest release"),
                       APP_VERSION_MAJOR, APP_VERSION_MINOR, APP_VERSION_PATCH);
         statusColor = pal.ok;
         break;
@@ -3147,7 +3147,7 @@ void draw_batteryinfo_bi::drawAboutTab(ID2D1HwndRenderTarget *pRT, init_dwrite_b
         break;
 
     case 4:
-        status = wfmt(i18n_bi::tr("about.downloading_pct", L"Downloading\u2026 %d%%"), upd.progress);
+        status = wfmt(i18n_bi::trf("about.downloading_pct", L"Downloading\u2026 %d%%"), upd.progress);
         primaryLabel = i18n_bi::tr("about.downloading", L"Downloading\u2026");
         primaryEnabled = false;
         break;
@@ -3256,7 +3256,7 @@ void draw_batteryinfo_bi::drawAboutTab(ID2D1HwndRenderTarget *pRT, init_dwrite_b
     lines.push_back(d3);
 
     diag_row d4 = {i18n_bi::tr("about.diag_per_core", L"Per-core load"),
-                   wfmt(i18n_bi::tr("about.threads", L"%d threads"), diag.threads),
+                   wfmt(i18n_bi::trf("about.threads", L"%d threads"), diag.threads),
                    diag.threads > 0};
     lines.push_back(d4);
 
