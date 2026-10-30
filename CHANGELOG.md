@@ -15,7 +15,7 @@ rather than complete lists.
 ### Changed
 
 - The main window, tray menu and dialogs now go through the language files
-  instead of only the first-run wizard.
+  instead of only the first-run wizard. Contributed by @Discover999.
 
 ### Security
 
