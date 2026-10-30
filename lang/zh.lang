@@ -314,3 +314,13 @@ about.footer=MIT 许可证 · github.com/semiloker/Kestrel
 msg.no_foreground=没有可测量的前台进程。请聚焦要录制的应用，并确保帧追踪正在运行。
 msg.restart_restored=Kestrel 无法启动替换程序。已恢复之前的文件布局。
 msg.restart_failed=Kestrel 无法启动替换程序，自动文件恢复也失败。请从官方发布重新安装 Kestrel。
+msg.window_failed=无法创建窗口！
+msg.elevate_failed=无法以管理员权限重启。\n请关闭 Kestrel，然后用“以管理员身份运行”启动它。
+msg.install_failed=无法安装更新。\n如果 Kestrel 以管理员身份运行，请将其移到受管理员保护的文件夹（例如 Program Files）。\n否则，请确保其当前文件夹可写，然后重试。
+msg.rollback_failed=无法恢复到先前的版本。
+
+# --- 托盘菜单 ---
+tray.open=打开
+tray.hide_overlay=隐藏悬浮窗
+tray.show_overlay=显示悬浮窗
+tray.exit=退出
